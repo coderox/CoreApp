@@ -4,12 +4,12 @@ project(CoreApp)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 set(SOURCE_FILES
-  App.cpp
-  pch.cpp
+  source/App.cpp
+  source/pch.cpp
   )
 
 set(HEADER_FILES
-  pch.h
+  source/pch.h
   )
 
 set(ASSET_FILES
@@ -21,14 +21,16 @@ set(ASSET_FILES
     )
 
 set(CONTENT_FILES
-    Package.appxmanifest
+    Assets/Package.appxmanifest
     )
 
 set(RESOURCE_FILES
   ${CONTENT_FILES} ${ASSET_FILES}
-  CoreApp_TemporaryKey.pfx)
+  Assets/CoreApp_TemporaryKey.pfx)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}
+  source
+  )
 
 set_property(SOURCE ${CONTENT_FILES} PROPERTY VS_DEPLOYMENT_CONTENT 1)
 set_property(SOURCE ${ASSET_FILES} PROPERTY VS_DEPLOYMENT_CONTENT 1)
@@ -41,7 +43,7 @@ source_group("Resource Files" FILES ${RESOURCE_FILES})
 add_executable(CoreApp WIN32 ${SOURCE_FILES} ${HEADER_FILES} ${RESOURCE_FILES})
 
 set_target_properties(CoreApp PROPERTIES COMPILE_FLAGS "/Yupch.h")
-set_source_files_properties(pch.cpp PROPERTIES COMPILE_FLAGS "/Ycpch.h")
+set_source_files_properties(source/pch.cpp PROPERTIES COMPILE_FLAGS "/Ycpch.h")
 
 set_target_properties(CoreApp PROPERTIES
   CXX_STANDARD 17
